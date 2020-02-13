@@ -44,7 +44,7 @@ var mainState = {
     update: function () {
         this.bg.tilePosition.x += -1;
 
-        if (this.face.y < -600 || this.face.y > 600)
+        if (this.face.y < -100 || this.face.y > 600)
             this.restartGame();
 
         game.physics.arcade.overlap(
