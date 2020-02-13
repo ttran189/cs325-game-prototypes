@@ -5,9 +5,13 @@ var mainState = {
         game.load.image('rock', 'assets/rock.png');
         game.load.audio('laugh', 'assets/laugh.wav');
         game.load.audio('aww', 'assets/aww.wav');
+        game.load.audio('beat', 'assets/looped-beat.ogg');
     },
 
     create: function () {
+        this.music = game.add.audio('beat');
+        this.music.play();
+
         game.stage.backgroundColor = '#4198b1';
 
         this.bg = game.add.tileSprite(0, 0, 800, 600, 'bg');
@@ -53,6 +57,7 @@ var mainState = {
     },
 
     hit: function () {
+        this.music.stop();
         this.hurtSound.play();
         //this.rocks.body.velocity.x = 0;
         //game.paused = true;
@@ -66,6 +71,7 @@ var mainState = {
     },
 
     restartGame: function () {
+        this.music.stop();
         game.state.start('main');
     },
 
