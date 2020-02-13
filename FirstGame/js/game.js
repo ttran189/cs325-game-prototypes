@@ -43,6 +43,11 @@ var mainState = {
 
         game.physics.arcade.overlap(
             this.face, this.rocks, this.hit, null, this);
+
+        if (game.input.activePointer.isDown)
+        {
+            this.jump();
+        }
     },
 
     hit: function () {
