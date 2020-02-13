@@ -23,6 +23,8 @@ var mainState = {
             Phaser.Keyboard.SPACEBAR);
         this.spaceKey.onDown.add(this.jump, this);
 
+        game.input.onTap.add(this.jump, this);
+
         this.laughSound = game.add.audio('laugh');
         this.hurtSound = game.add.audio('aww');
 
