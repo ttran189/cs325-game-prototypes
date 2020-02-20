@@ -33,6 +33,11 @@ var mainState = {
     },
 
     create: function () {
+
+        game.scale.pageAlignHorizontally = true;
+        game.scale.pageAlignVertically = true;
+        game.scale.refresh();
+
         this.music = game.add.audio('beat', 1, true);
 
         game.stage.backgroundColor = '#4198b1';
