@@ -162,8 +162,6 @@ class GameScene extends Phaser.Scene {
             this.balloons.add(balloon);
             cnt++;
         }
-        //this.groupWords.push(oneWord);
-        this.wordArray.push(word);
     }
 
     end() {
