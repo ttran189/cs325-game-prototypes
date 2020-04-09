@@ -1,4 +1,4 @@
-import BootScene from 'scenes/boot';
+import BootScene from 'scenes/boot'
 import DefaultScene from 'scenes/default';
 import MenuScene from 'scenes/menu';
 
