@@ -15,7 +15,7 @@ export default class MenuScene extends Phaser.Scene {
         let scene = this.scene;
         let selectedMenu = 1;
 
-        const picBg = this.add.image(500, 300, 'bg');
+        this.picBg = this.add.image(500, 300, 'uni');
 
         const picTitle = this.add.image(0, 0, 'title');
         picTitle.setOrigin(0, 0);
@@ -129,6 +129,11 @@ export default class MenuScene extends Phaser.Scene {
                     break;
             }
         });
+    }
+
+    update(time, delta) {
+        super.update(time, delta);
+        this.picBg.rotation += 0.0005;
     }
 
 }

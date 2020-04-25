@@ -20,6 +20,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('title', 'title.png');
         this.load.image('bg-dim-1', 'bg-dim-1.png');
         this.load.image("cell", "cell.png");
+        this.load.image("reloadBtn", "reload.png");
 
         for (let i = 1; i < 10; i++) {
             let name = "si-" + i;

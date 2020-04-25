@@ -16,6 +16,12 @@ export default class DefaultScene extends Phaser.Scene {
         this.events.on('shutdown', this.shutdown, this);
     }
 
+    reload() {
+        this.registry.destroy();
+        this.events.off();
+        this.scene.restart();
+    }
+
     create() {
         //const earthBg = this.add.image(500, 1100, 'earth');
         this.uni = new Phaser.Physics.Arcade.Sprite(this, 500, 300, 'uni');
@@ -23,6 +29,8 @@ export default class DefaultScene extends Phaser.Scene {
         this.add.existing(this.uni);
         this.add.existing(this.earth);
         const picBg = this.add.image(500, 300, 'bg2');
+        this.reloadBtn = this.add.sprite(950, 50, 'reloadBtn').setInteractive();
+        this.reloadBtn.on('pointerup', () => this.scene.restart());
 
         this.currentSpeed = 1000;
         this.fallTimer = this.time.addEvent({
@@ -133,7 +141,7 @@ export default class DefaultScene extends Phaser.Scene {
     }
 
     resetSpecialItem(obj) {
-        if(obj === this.item) {
+        if (obj === this.item) {
             this.sound.play('sound-siUse');
             if (this.gameData.sdPoint <= this.item.sdpoint) {
                 this.gameData.sdPoint = 0;
