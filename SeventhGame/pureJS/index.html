@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<meta name='viewport' content='initial-scale=1.0, user-scalable=no'>
+<title>Tetris 2022</title>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        color: #eee;
+        background: #111;
+    }
+
+    .instructionContainer {
+        color: #FFF;
+        padding: 5px;
+        font-family: sans-serif;
+        line-height: 20px;
+    }
+
+    .col {
+        float: left;
+        padding: 10px;
+        /* border-right: 1px solid gray; */
+        color: #989375;
+        font-size: 14px;
+        max-width: 600px;
+    }
+
+    p {
+        text-transform: uppercase;
+        color: #c75151;
+        font-weight: bold;
+        border-bottom: 1px solid;
+    }
+
+    .clr {
+        clear: both;
+    }
+    /* canvas { width: 100%; height: 100%; object-fit: contain; } */
+</style>
+<script src="//cdn.jsdelivr.net/npm/phaser@3.22.0/dist/phaser.min.js" type="module"></script>
+<script src="js/SpecialItem.js" type="module"></script>
+<script src="js/initialize.js" type="module"></script>
+<script src="data/CONSTANT.js" type="module"></script>
+<script src="scenes/boot.js" type="module"></script>
+<script src="scenes/menu.js" type="module"></script>
+<script src="scenes/default.js" type="module"></script>
+<script src="js/Dot.js" type="module"></script>
+<script src="js/Brick.js" type="module"></script>
+<script src="js/NextBrick.js" type="module"></script>
+<script src="js/GridBoard.js" type="module"></script>
+<script src="js/Board.js" type="module"></script>
+
+<div class="instructionContainer">
+    <div class="col">
+        <p>Info:</p>
+        <ul>
+            <li>@author: Trung Tran</li>
+            <li>@date: April 22 2020</li>
+            <li>@game: Tetris 2020</li>
+            <li>@version: 2.0</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <p>How to Play:</p>
+        <ul>
+            <li>Move left: LEFT</li>
+            <li>Move right: RIGHT</li>
+            <li>Rotation: UP or <, ></li>
+            <li>Fall faster: DOWN</li>
+            <li>Drop: SPACE</li>
+            <li>Use Special Item: X</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <p>V2 Updated Features</p>
+        <ul>
+            <li>New design for main game scene</li>
+            <li>S-point is now SD-point, which is calculated based on S-point (falling speed and immediate drop counts)
+                depends on how users play the game. It will increase fast or slow.</li>
+            <li>Level is now automatically increased after user hit a certain checkpoint score (7 levels with dif. falling speed)</li>
+            <li>Special items added: Users need to charge the SPoints to meet the required SPoint of the special items, whe item will be ready
+                to user when users gain enough spoints. If he does not use the special item, it will expires after 15s and a new one will show up.</li>
+            <li>4 Types of special items with dif. period of effects: Destroy, Reverse, Fast Fall</li>
+            <li>Destroy multiple lines at the same time will gain more score than single one. 4 will be gain most points</li>
+            <li>Timer added</li>
+        </ul>
+    </div>
+
+
+    <div class="clr"></div>
+</div>

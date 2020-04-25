@@ -1,3 +1,5 @@
+import DefaultScene from "./default.js";
+
 export default class MenuScene extends Phaser.Scene {
 
     constructor() {
@@ -115,13 +117,15 @@ export default class MenuScene extends Phaser.Scene {
         keyEnter.on('down', function (event) {
             switch(selectedMenu) {
                 case 1:
+                    scene.add('default', DefaultScene, false)
                     scene.start('default');
+                    scene.remove('menu');
                     break;
                 case 2:
-                    scene.start('highScore');
+                    scene.start('default');
                     break;
                 case 3:
-                    scene.start('about');
+                    scene.start('default');
                     break;
             }
         });

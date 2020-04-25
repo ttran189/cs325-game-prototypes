@@ -3,6 +3,7 @@ import {Brick} from "../js/Brick.js";
 import {GridBoard} from "../js/GridBoard.js";
 import {CONSTANT} from "../data/CONSTANT.js";
 import {NextBrick} from "../js/NextBrick.js";
+import MenuScene from "./menu.js";
 
 export default class DefaultScene extends Phaser.Scene {
 
@@ -156,7 +157,9 @@ export default class DefaultScene extends Phaser.Scene {
     quit() {
         // this.removeBrick();
         // this.fallTimer.destroy();
-        this.scene.start('menu');
+
+        // this.scene.add('menu', MenuScene, false);
+        // this.scene.start('menu');
     }
 
     removeBrick() {

@@ -56,8 +56,8 @@ window.game = new Phaser.Game({
   },
   scene: [
     BootScene,
-    DefaultScene,
-    MenuScene
+    // DefaultScene,
+    // MenuScene
   ],
 
 });
