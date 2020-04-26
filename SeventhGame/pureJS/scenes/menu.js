@@ -26,7 +26,7 @@ export default class MenuScene extends Phaser.Scene {
         picBgDim.setPosition((game.renderer.width - picBgDim.width) / 2, 270);
 
         const btnNewGame = this.add.sprite(0, 0, 'btn-newGame').setInteractive();
-        btnNewGame.setOrigin(0,0);
+        btnNewGame.setOrigin(0, 0);
         btnNewGame.setPosition((game.renderer.width - btnNewGame.width) / 2 - 10, 305);
         btnNewGame.setFrame(1);
         // btnNewGame.on('pointerover', function(pointer) {
@@ -39,7 +39,7 @@ export default class MenuScene extends Phaser.Scene {
         btnNewGame.setScale(1.3);
 
         const btnHighScore = this.add.sprite(0, 0, 'btn-highScore').setInteractive();
-        btnHighScore.setOrigin(0,0);
+        btnHighScore.setOrigin(0, 0);
         btnHighScore.setPosition((game.renderer.width - btnHighScore.width) / 2 - 12, 355);
         // btnHighScore.on('pointerover', function(pointer) {
         //     player.play('sound-swap');
@@ -51,7 +51,7 @@ export default class MenuScene extends Phaser.Scene {
         btnHighScore.setScale(1.3);
 
         const btnAbout = this.add.sprite(0, 0, 'btn-about').setInteractive();
-        btnAbout.setOrigin(0,0);
+        btnAbout.setOrigin(0, 0);
         btnAbout.setPosition((game.renderer.width - btnAbout.width) / 2 - 12, 405);
         // btnAbout.on('pointerover', function(pointer) {
         //     player.play('sound-swap');
@@ -63,38 +63,38 @@ export default class MenuScene extends Phaser.Scene {
         btnAbout.setScale(1.3);
 
         //this.input.on('pointerup', this.start, this);
-        btnNewGame.on('pointerup', function(pointer) {
+        btnNewGame.on('pointerup', function (pointer) {
             player.play('sound-click');
         });
 
-        btnHighScore.on('pointerup', function(pointer) {
+        btnHighScore.on('pointerup', function (pointer) {
             player.play('sound-click');
         });
 
-        btnAbout.on('pointerup', function(pointer) {
+        btnAbout.on('pointerup', function (pointer) {
             player.play('sound-click');
         });
 
 
         let keyUp = this.input.keyboard.addKey('UP');
-        keyUp.on('down', function(event) {
+        keyUp.on('down', function (event) {
             selectedMenu--;
-            if(selectedMenu === 0)
+            if (selectedMenu === 0)
                 selectedMenu = 3;
             highLightBtn();
         });
 
         let keyDown = this.input.keyboard.addKey('DOWN');
-        keyDown.on('down', function(event) {
+        keyDown.on('down', function (event) {
             selectedMenu++;
-            if(selectedMenu === 4)
+            if (selectedMenu === 4)
                 selectedMenu = 1;
             highLightBtn();
         });
 
         function highLightBtn() {
             player.play('sound-swap');
-            switch(selectedMenu) {
+            switch (selectedMenu) {
                 case 1:
                     btnNewGame.setFrame(1);
                     btnHighScore.setFrame(0);
@@ -115,20 +115,20 @@ export default class MenuScene extends Phaser.Scene {
 
         let keyEnter = this.input.keyboard.addKey('ENTER');
         keyEnter.on('down', function (event) {
-            switch(selectedMenu) {
+            switch (selectedMenu) {
                 case 1:
-                    scene.add('default', DefaultScene, false)
-                    scene.start('default');
+                    scene.add('default', DefaultScene, true)
                     scene.remove('menu');
                     break;
                 case 2:
-                    scene.start('default');
+                    scene.add('default', DefaultScene, true)
                     break;
                 case 3:
-                    scene.start('default');
+                    scene.add('default', DefaultScene, true)
                     break;
             }
         });
+
     }
 
     update(time, delta) {

@@ -21,6 +21,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('bg-dim-1', 'bg-dim-1.png');
         this.load.image("cell", "cell.png");
         this.load.image("reloadBtn", "reload.png");
+        this.load.html('nameForm', 'nameForm.html');
 
         for (let i = 1; i < 10; i++) {
             let name = "si-" + i;
@@ -55,6 +56,8 @@ export default class BootScene extends Phaser.Scene {
         this.load.on('progress', this.onLoadProgress, this);
         this.load.on('complete', this.onLoadComplete, this);
         this.createProgressBar();
+
+
     }
 
     create() {

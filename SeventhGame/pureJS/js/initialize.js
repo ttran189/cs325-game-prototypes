@@ -9,7 +9,7 @@ window.game = new Phaser.Game({
   // zoom: 1,
   // resolution: 1,
   type: Phaser.AUTO,
-  // parent: null,
+  parent: 'div-container',
   // canvas: null,
   // canvasStyle: null,
   // seed: null,
@@ -53,6 +53,9 @@ window.game = new Phaser.Game({
         y: 180
       }
     }
+  },
+  dom: {
+    createContainer: true
   },
   scene: [
     BootScene,

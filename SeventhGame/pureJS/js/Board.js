@@ -26,11 +26,26 @@ export class Board extends Phaser.GameObjects.Graphics {
             let x = dot.row;
             this.mark(x, y, dot.color);
         }
-        //this.showData();
+    }
+
+    isFull() {
+        let row = 3;
+        for(let col = 0; col < CONSTANT.gameBoard.NUM_COLS; col++) {
+            if(this.boardData[row][col] !== null) {
+                console.log("Game Over " + row + ":" + col);
+                return true;
+            }
+        }
+        return false;
     }
 
     reset() {
-        this.boardData = CONSTANT.gameBoard.BOARD_DATA;
+        for(let i = 0; i < CONSTANT.gameBoard.NUM_ROWS; i++) {
+            for(let j = 0; j < CONSTANT.gameBoard.NUM_COLS; j++) {
+                this.boardData[i][j] = null;
+            }
+        }
+        this.draw();
     }
 
     mark(x, y, color) {

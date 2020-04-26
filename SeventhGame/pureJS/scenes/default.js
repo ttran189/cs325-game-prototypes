@@ -13,13 +13,34 @@ export default class DefaultScene extends Phaser.Scene {
 
     init(data) {
         console.debug('init', this.scene.key, data, this);
-        this.events.on('shutdown', this.shutdown, this);
+        //this.events.on('shutdown', this.shutdown, this);
     }
 
-    reload() {
-        this.registry.destroy();
-        this.events.off();
-        this.scene.restart();
+    reset() {
+        console.log("Game is reset");
+        this.resetGameData();
+        this.board.reset();
+        this.item.destroy();
+        this.createSpecialItem();
+        this.brick.clearSet();
+        this.brick.destroy();
+        this.createBrick();
+        this.gameData.ptime = Math.floor(this.time.now / 1000);
+    }
+
+    resetGameData() {
+        this.gameData = {
+            sPoint: 0,
+            sdPoint: 0,
+            score: 0,
+            level: 1,
+            destroyed: 0,
+            player: "",
+            ptime: 0,
+            time: 0,
+            nexShapeIndices: [],
+            nextSpecialIndices: []
+        };
     }
 
     create() {
@@ -30,7 +51,7 @@ export default class DefaultScene extends Phaser.Scene {
         this.add.existing(this.earth);
         const picBg = this.add.image(500, 300, 'bg2');
         this.reloadBtn = this.add.sprite(950, 50, 'reloadBtn').setInteractive();
-        this.reloadBtn.on('pointerup', () => this.scene.restart());
+        this.reloadBtn.on('pointerup', () => this.reset());
 
         this.currentSpeed = 1000;
         this.fallTimer = this.time.addEvent({
@@ -56,17 +77,7 @@ export default class DefaultScene extends Phaser.Scene {
             loop: true
         })
 
-        this.gameData = {
-            sPoint: 0,
-            sdPoint: 0,
-            score: 0,
-            level: 1,
-            destroyed: 0,
-            player: "",
-            time: null,
-            nexShapeIndices: [],
-            nextSpecialIndices: []
-        };
+        this.resetGameData();
 
         let styleConfig = {
             font: "20px 'Verdana'", fill: "#ff0000", align: "center"
@@ -85,6 +96,36 @@ export default class DefaultScene extends Phaser.Scene {
         this.itemLabel = this.add.text(255, 240, "0 s-points", styleConfig);
         this.createSpecialItem();
 
+        this.gameOverPromt = this.add.text(350, 230, 'Game Over!', {stroke: '#b82800', strokeThickness: 15, color: 'white', fontSize: '50px '});
+        this.click2Restart = this.add.text(400, 290, '-[Restart]-', {color: 'orange', fontSize: '30px '});
+        this.gameOverPromt.setVisible(false);
+        this.click2Restart.setVisible(false);
+
+        let namePromt = this.add.text(400, 520, 'Please enter your name', {color: 'white', fontSize: '20px '});
+        let nameForm = this.add.dom(500, 570).createFromCache('nameForm');
+        nameForm.addListener('click');
+        nameForm.on('click', function (event) {
+            if (event.target.name === 'playButton') {
+                let inputText = this.getChildByName('nameField');
+                if (inputText.value !== '') {
+                    this.removeListener('click');
+                    this.setVisible(false);
+                    this.scene.gameData.player = inputText.value;
+                    this.scene.data_player.text = inputText.value;
+                    namePromt.setVisible(false);
+                    this.scene.resumeGameForName();
+                }
+            }
+        });
+
+        this.pauseGameForName();
+    }
+
+    pauseGameForName() {
+        this.scene.pause();
+    }
+
+    resumeGameForName() {
         this.keyLeft = this.input.keyboard.addKey('LEFT');
         this.keyLeft.on('down', () => this.brick.moveLeft());
 
@@ -103,7 +144,6 @@ export default class DefaultScene extends Phaser.Scene {
         this.keyX = this.input.keyboard.addKey('X');
         this.keyX.on('down', () => this.useSpecialItem());
 
-
         this.keySPACE = this.input.keyboard.addKey('SPACE');
         this.keySPACE.on('down', () => {
             this.sound.play('sound-drop');
@@ -111,8 +151,8 @@ export default class DefaultScene extends Phaser.Scene {
         });
 
         this.keyDown = this.input.keyboard.addKey('DOWN');
-
         this.input.keyboard.once('keydown_Q', this.quit, this);
+        this.scene.resume();
     }
 
     useSpecialItem() {
@@ -130,7 +170,6 @@ export default class DefaultScene extends Phaser.Scene {
     }
 
     createSpecialItem() {
-        //let pick = 7;
         let pick = this.getRandomIntInclusive(1, 9);
         let pic_name = "si-" + pick;
         this.item = new SpecialItem(this, pic_name, pick);
@@ -245,10 +284,9 @@ export default class DefaultScene extends Phaser.Scene {
         this.updateLevel();
         this.data_score.text = this.gameData.score;
         this.data_sPoint.text = this.gameData.sdPoint;
-        //this.data_time.text = "00:00:00";
-        this.data_time.text = Math.floor(this.time.now / 1000) + "s";
+        let currentTime = Math.floor(this.time.now / 1000) - this.gameData.ptime;
+        this.data_time.text = currentTime + "s";
         this.data_level.text = this.gameData.level;
-        this.data_player.text = "Trung Tran";
         this.data_destroyed.text = this.gameData.destroyed;
     }
 
@@ -287,6 +325,21 @@ export default class DefaultScene extends Phaser.Scene {
             this.brick.fall();
         }
         this.updateData();
+        if(this.board.isFull()) {
+            this.board.reset();
+            this.brick.clearSet();
+            this.time.delayedCall(5000, this.startOver, [], this);
+            this.gameOverPromt.setDepth(10);
+            this.click2Restart.setDepth(10);
+            this.gameOverPromt.setVisible(true);
+            this.click2Restart.setVisible(true);
+        }
+    }
+
+    startOver() {
+        this.gameOverPromt.setVisible(false);
+        this.click2Restart.setVisible(false);
+        this.reset();
     }
 
     getRandWithProb(setWithProb) {
