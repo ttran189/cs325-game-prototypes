@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<meta name='viewport' content='initial-scale=1.0, user-scalable=no'>
+<title>Tetris 2022</title>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        color: #eee;
+        background: #111;
+    }
+
+    .instructionContainer {
+        color: #FFF;
+        padding: 5px;
+        font-family: sans-serif;
+        line-height: 20px;
+    }
+
+    .col {
+        float: left;
+        padding: 10px;
+        /* border-right: 1px solid gray; */
+        color: #989375;
+        font-size: 14px;
+        max-width: 600px;
+    }
+
+    p {
+        text-transform: uppercase;
+        color: #c75151;
+        font-weight: bold;
+        border-bottom: 1px solid;
+    }
+
+    .clr {
+        clear: both;
+    }
+    /* canvas { width: 100%; height: 100%; object-fit: contain; } */
+</style>
+<script src="//cdn.jsdelivr.net/npm/phaser@3.22.0/dist/phaser.min.js" type="module"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+<script src="js/SpecialItem.js" type="module"></script>
+<script src="js/initialize.js" type="module"></script>
+<script src="data/CONSTANT.js" type="module"></script>
+<script src="scenes/boot.js" type="module"></script>
+<script src="scenes/menu.js" type="module"></script>
+<script src="scenes/default.js" type="module"></script>
+<script src="js/Dot.js" type="module"></script>
+<script src="js/Brick.js" type="module"></script>
+<script src="js/NextBrick.js" type="module"></script>
+<script src="js/GridBoard.js" type="module"></script>
+<script src="js/Board.js" type="module"></script>
+
+<div id="div-container"></div>
+
+<div class="instructionContainer">
+    <div class="col">
+        <p>Info:</p>
+        <ul>
+            <li>@author: Trung Tran</li>
+            <li>@date: May 04 2020</li>
+            <li>@game: Tetris 2020</li>
+            <li>@version: 3.0</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <p>How to Play:</p>
+        <ul>
+            <li>Move left: LEFT</li>
+            <li>Move right: RIGHT</li>
+            <li>Rotation: UP or <, ></li>
+            <li>Fall faster: DOWN</li>
+            <li>Drop: SPACE</li>
+            <li>Use Special Item: X</li>
+            <li>Game Over: Auto reset</li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <p>V3 Updated Features</p>
+        <ul>
+            <li>New Scenes Added: Credits, Leader Board</li>
+            <li>Add score gained to real-time firebase. Record includes: player, score and level</li>
+            <li>Retrieve record of 5 people who gained highest scores and show them up in leader board</li>
+            <li><u>Bugs Fixed:</u></li>
+            <li>- Item would expires if remained unused for a certain period of time.</li>
+            <li>- The make will be more balanced and easier due to the blocks generated based on a preset probability</li>
+            <li>- When the game ends, automatically reset all data and restart the game</li>
+            <li>- Minor bugs fixed in game start, game main progress and game restart</li>
+            <li><u>Known Issues (not fixed):</u></li>
+            <li>- Switching scene problem between menu, leader board and credit</li>
+        </ul>
+    </div>
+
+
+    <div class="clr"></div>
+</div>
